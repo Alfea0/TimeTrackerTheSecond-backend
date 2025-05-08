@@ -35,4 +35,16 @@ public class TaskController {
     public Task updateTask(@PathVariable String id, @RequestBody Task task) {
         return taskService.updateTask(id, task);
     }
+
+        // Den här endpointen används när man checkar in på en uppgift
+        @PostMapping("/checkin/{id}")
+        public Task checkIn(@PathVariable String id) {
+            return taskService.checkIn(id);
+        }
+    
+        // DEn här endpointen används när man checkar ut från en uppgift
+        @PostMapping("/checkout/{id}")
+        public Task checkOut(@PathVariable String id) {
+            return taskService.checkOut(id);
+        }
 }
