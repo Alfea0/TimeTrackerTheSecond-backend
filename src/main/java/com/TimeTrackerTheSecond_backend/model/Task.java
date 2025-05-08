@@ -1,5 +1,7 @@
 package com.TimeTrackerTheSecond_backend.model;
 
+import java.time.LocalDateTime;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -11,6 +13,8 @@ public class Task {
     private String id;
     private String name;
     private boolean isActive;
+    private LocalDateTime checkInTime;
+    private LocalDateTime checkOutTime;
 
     public String getId() {
         return id;
@@ -34,5 +38,21 @@ public class Task {
 
     public void setActive(boolean active) {
         isActive = active;
+    }
+
+    public LocalDateTime getCheckInTime() {
+        return checkInTime;
+    }
+
+    public void setCheckInTime(LocalDateTime checkInTime) {
+        this.checkInTime = checkInTime;
+    }
+
+    public LocalDateTime getCheckOutTime() {
+        return checkOutTime;
+    }
+
+    public void setCheckOutTime(LocalDateTime checkOutTime) {
+        this.checkOutTime = checkOutTime;
     }
 }
