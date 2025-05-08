@@ -7,7 +7,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 // model som ska användas för att spara arbetsuppgifter i databasen
 @Document(collection = "tasks")
-public class Task {
+public class Category {
 
     @Id
     private String id;

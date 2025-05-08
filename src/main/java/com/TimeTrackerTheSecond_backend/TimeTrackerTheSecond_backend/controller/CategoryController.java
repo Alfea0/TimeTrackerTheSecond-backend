@@ -1,6 +1,7 @@
 package com.TimeTrackerTheSecond_backend.TimeTrackerTheSecond_backend.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -12,48 +13,53 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.TimeTrackerTheSecond_backend.TimeTrackerTheSecond_backend.model.Task;
-import com.TimeTrackerTheSecond_backend.TimeTrackerTheSecond_backend.service.TaskService;
+import com.TimeTrackerTheSecond_backend.TimeTrackerTheSecond_backend.model.Category;
+import com.TimeTrackerTheSecond_backend.TimeTrackerTheSecond_backend.service.CategoryService;
 
 @CrossOrigin(origins = "http://localhost:5173")
 @RestController
-@RequestMapping("/api/tasks")
-public class TaskController {
+@RequestMapping("/api/categorys")
+public class CategoryController {
 
     @Autowired
-    private TaskService taskService;
+    private CategoryService categoryService;
 
     @GetMapping
-    public List<Task> getAllTasks() {
-        return taskService.getAllTasks();
+    public List<Category> getAllCategorys() {
+        return categoryService.getAllCategorys();
     }
 
     @PostMapping
-    public Task createTask(@RequestBody Task task) {
-        return taskService.createTask(task);
+    public Category createCategory(@RequestBody Category category) {
+        return categoryService.createCategory(category);
     }
 
     @PutMapping("/{id}")
-    public Task updateTask(@PathVariable String id, @RequestBody Task task) {
-        return taskService.updateTask(id, task);
+    public Category updateCategory(@PathVariable String id, @RequestBody Category category) {
+        return categoryService.updateCategory(id, category);
     }
 
     // Den här endpointen används när man checkar in på en uppgift
     @PostMapping("/checkin/{id}")
-    public Task checkIn(@PathVariable String id) {
-        return taskService.checkIn(id);
+    public Category checkIn(@PathVariable String id) {
+        return categoryService.checkIn(id);
     }
     
     // Den här endpointen används när man checkar ut från en uppgift
     @PostMapping("/checkout/{id}")
-    public Task checkOut(@PathVariable String id) {
-        return taskService.checkOut(id);
+    public Category checkOut(@PathVariable String id) {
+        return categoryService.checkOut(id);
     }
 
     // Den här endpointen visar statistiken för en vecka
     @GetMapping("/stats/week")
     public long getTotalWorkedMinutesForWeek() {
-        return taskService.getTotalWorkedMinutesForWeek();
+        return categoryService.getTotalWorkedMinutesForWeek();
+    }
+    
+    @GetMapping("/stats/week/per-category")
+    public Map<String, Long> getWorkedMinutesPerCategoryThisWeek() {
+        return categoryService.getWorkedMinutesPerCategoryThisWeek();
     }
 
 }
