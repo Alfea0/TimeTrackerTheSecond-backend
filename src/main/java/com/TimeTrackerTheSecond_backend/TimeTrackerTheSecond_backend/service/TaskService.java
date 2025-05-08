@@ -1,11 +1,13 @@
-package com.TimeTrackerTheSecond_backend.service;
+package com.TimeTrackerTheSecond_backend.TimeTrackerTheSecond_backend.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.TimeTrackerTheSecond_backend.repository.TaskRepository;
-import com.TimeTrackerTheSecond_backend.model.Task;
+import com.TimeTrackerTheSecond_backend.TimeTrackerTheSecond_backend.model.Task;
+import com.TimeTrackerTheSecond_backend.TimeTrackerTheSecond_backend.repository.TaskRepository;
 
+import java.time.Duration;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -54,5 +56,32 @@ public class TaskService {
             return taskRepository.save(task);
         }
         return null;
+    }
+
+     // En metod för att beräkna arbetad tid
+     public long calculateWorkedMinutes(Task task) {
+        if (task.getCheckInTime() != null && task.getCheckOutTime() != null) {
+            Duration duration = Duration.between(task.getCheckInTime(), task.getCheckOutTime());
+            return duration.toMinutes();  
+        }
+        return 0;
+    }
+
+    // En metod för att beräkna tiden över en vecka
+    public long getTotalWorkedMinutesForWeek() {
+        LocalDateTime startOfWeek = LocalDate.now().minusDays(LocalDate.now().getDayOfWeek().getValue() - 1).atStartOfDay();
+        LocalDateTime endOfWeek = startOfWeek.plusDays(7);
+
+        long totalMinutes = 0;
+        List<Task> tasks = taskRepository.findAll();
+        for (Task task : tasks) {
+    
+            if (task.getCheckInTime() != null && task.getCheckOutTime() != null &&
+                (task.getCheckInTime().isAfter(startOfWeek) || task.getCheckInTime().isEqual(startOfWeek)) &&
+                task.getCheckOutTime().isBefore(endOfWeek)) {
+                totalMinutes += calculateWorkedMinutes(task);
+            }
+        }
+        return totalMinutes; 
     }
 }

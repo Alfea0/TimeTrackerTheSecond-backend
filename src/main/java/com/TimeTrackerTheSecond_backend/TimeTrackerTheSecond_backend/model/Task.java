@@ -1,4 +1,4 @@
-package com.TimeTrackerTheSecond_backend.model;
+package com.TimeTrackerTheSecond_backend.TimeTrackerTheSecond_backend.model;
 
 import java.time.LocalDateTime;
 
