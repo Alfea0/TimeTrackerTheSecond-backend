@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.TimeTrackerTheSecond_backend.TimeTrackerTheSecond_backend.model.Category;
 import com.TimeTrackerTheSecond_backend.TimeTrackerTheSecond_backend.service.CategoryService;
 
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = "https://walrus-app-yvy7k.ondigitalocean.app")
 @RestController
 @RequestMapping("/api/categorys")
 public class CategoryController {
